@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.wensity.com/schema/wensity.json",
+  "registry": "https://ui.wensity.com/api/registry",
+  "components": "src/components/wensity",
+  "utils": "src/lib/utils",
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/app/globals.css"
+  },
+  "aliases": {
+    "components": "@/components/wensity",
+    "utils": "@/lib/utils"
+  }
+}

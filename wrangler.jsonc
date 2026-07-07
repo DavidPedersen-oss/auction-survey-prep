@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "auction-survey-prep",
+  "compatibility_date": "2025-06-01",
+  "main": "./worker/index.ts",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "auction-survey-prep",
+      "database_id": "REPLACE_AFTER_D1_CREATE"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PHOTOS",
+      "bucket_name": "auction-survey-photos"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
