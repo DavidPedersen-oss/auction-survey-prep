@@ -26,17 +26,26 @@ worker/
 schema.sql        # D1 table definitions
 ```
 
-## Deploy
+## Deploy (one-time setup)
+
+Requires a free Cloudflare account. Note: enabling **R2** requires a payment card on file even though the 10 GB free tier is never billed.
 
 ```bash
-npx wrangler d1 create auction-survey-prep        # one-time
-npx wrangler d1 execute auction-survey-prep --file=schema.sql
+npx wrangler login                                # opens browser
+
+npx wrangler d1 create auction-survey-prep        # prints a database_id →
+#   paste it into wrangler.jsonc under "database_id" before continuing
+
 npx wrangler r2 bucket create auction-survey-photos
 
-npm run deploy     # builds frontend + deploys Worker
+npx wrangler d1 execute auction-survey-prep --remote --file=schema.sql
+
+npm run deploy     # builds frontend + deploys Worker to *.workers.dev
 ```
 
-Then run `npx wrangler d1 info auction-survey-prep` for the database ID and paste it into `wrangler.jsonc` under `database_id`.
+The deploy prints the live URL. First visit shows a one-time **create admin account** page. Then in Admin → Numbering, upload `L&F Master - Survey.xlsx` to seed the survey-number counter, and add student accounts under Admin → Users. On phones, use the browser's *Add to Home Screen* to install the app.
+
+**When deploying changes, bump `CACHE_VERSION` in `public/sw.js`** so installed phones pick up the new build.
 
 ## API
 
@@ -70,6 +79,8 @@ Master Survey Import.csv
 Master Survey Paste.txt
 ```
 
+Extract the ZIP into `M:\Property\LOST AND FOUND\AUCTIONS L&F\FY XX-XX\`. The app's Price field maps to the master sheet's **Original Amount** column and Disposal Action is pre-filled with `AUCTION` (adjust in `src/lib/export.ts`).
+
 ## Fiscal year numbering
 
-FY starts July 1. Survey numbers use the two-digit ending year: July 2026 → `27-LF001`, July 2027 → `28-LF001`.
+FY starts July 1. Survey numbers use the two-digit ending year: July 2026 → `27-LF001`, July 2027 → `28-LF001`. Assignment is atomic (concurrent saves can't collide); manual numbers are allowed with a duplicate check.

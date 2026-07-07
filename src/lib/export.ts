@@ -113,7 +113,8 @@ export async function buildAuctionZip(
   }
 
   onProgress({ done: itemIds.length, total, label: "Master survey import" });
-  tree["Master Survey Import.csv"] = enc.encode("﻿" + buildMasterCsv(items));
+  // UTF-8 BOM so Excel opens the CSV with correct encoding
+  tree["Master Survey Import.csv"] = enc.encode("\uFEFF" + buildMasterCsv(items));
   tree["Master Survey Paste.txt"] = enc.encode(buildMasterTsv(items));
 
   const data = await new Promise<Uint8Array>((resolve, reject) =>
