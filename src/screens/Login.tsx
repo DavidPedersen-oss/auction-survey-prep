@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/wensity/input";
 import { Button } from "@/components/wensity/button";
 import { Alert, AlertDescription } from "@/components/wensity/alert";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { api, type User } from "@/lib/api";
 
 export function LoginScreen({
@@ -44,6 +45,11 @@ export function LoginScreen({
       <div className="absolute inset-0 -z-10">
         <MorphingShapeBackground />
       </div>
+      <ThemeToggle
+        variant="outline"
+        withLabel
+        className="absolute right-4 top-4 z-10 bg-surface/85 backdrop-blur-md"
+      />
       <Card className="w-full max-w-sm backdrop-blur-md bg-surface/85">
         <CardHeader>
           <CardTitle>Auction Survey Prep</CardTitle>

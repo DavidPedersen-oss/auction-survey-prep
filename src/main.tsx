@@ -1,13 +1,11 @@
 import { StrictMode } from "react";
-
-// Follow the OS light/dark preference (Wensity themes via a .dark class).
-const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-const applyTheme = () => document.documentElement.classList.toggle("dark", darkQuery.matches);
-applyTheme();
-darkQuery.addEventListener("change", applyTheme);
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { initTheme } from "./lib/theme";
 import "./index.css";
+
+// Apply the saved / OS theme before first paint (Wensity themes via a .dark class).
+initTheme();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

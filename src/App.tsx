@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/wensity/button";
 import { Card } from "@/components/wensity/card";
 import { Spinner } from "@/components/wensity/spinner";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { api, setUnauthorizedHandler, type User } from "@/lib/api";
 import { useHashRoute, navigate } from "@/lib/useHashRoute";
 import { Toaster } from "@/lib/toast";
@@ -82,6 +83,7 @@ export default function App() {
             <IconHome className="size-5" />
           </Button>
           <span className="flex-1 text-sm font-semibold tracking-[-0.01em]">Auction Survey Prep</span>
+          <ThemeToggle />
           {auth.user.role === "admin" && (
             <Button
               variant="ghost"
